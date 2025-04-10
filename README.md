@@ -19,7 +19,7 @@
         DATABASE_NAME=your_db
         DATABASE_USER=user
         DATABASE_PASSWORD=password
-        DATABASE_HOST=db
+        DATABASE_HOST=db  # указать имя db так как в файле docker-compose.yml сервис записан как db
         DATABASE_PORT=5432
         # settings.py
         DEBUG= #False or True
