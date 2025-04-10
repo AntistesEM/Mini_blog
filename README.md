@@ -10,12 +10,28 @@
 
 ### **Развернутый проект Docker**
 
-В корневом каталоге создать файл .env по аналогии с backend и добавить строчку SUPERUSER_PASSWORD=admin1
+В корневом каталоге, где находится файл `docker-compose.yml`, создать файл `.env` в соответствии с шаблоном:
+
+      ```plaintext
+        # SUPERUSER
+        SUPERUSER_PASSWORD=userpassword
+        # DATABASE
+        DATABASE_NAME=your_db
+        DATABASE_USER=user
+        DATABASE_PASSWORD=password
+        DATABASE_HOST=db
+        DATABASE_PORT=5432
+        # settings.py
+        DEBUG= #False or True
+        SECRET_KEY=*******  # можно сгенерировать на сайте https://djecrety.ir или с помощью терминала python: >>> import secrets >>> print(secrets.token_urlsafe(50))      
+        ALLOWED_HOSTS=#например через запятую: localhost,127.0.0.1,<ИМЯ ДОМЕНА ИЛИ IP АДРЕС СЕРВЕРА>
+        CORS_ALLOWED_ORIGINS=#например через запятую: http://localhost:3000,http://localhost:5173,http://localhost:4173
+      ```
 
 Для доступа в админку использовать следующие данные:
 
     - Username: admin
-    - Password: admin1
+    - Password: userpassword из файла `.env`
 
 ---
 
