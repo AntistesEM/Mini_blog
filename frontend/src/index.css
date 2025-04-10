@@ -1,0 +1,20 @@
+/* styles.css */
+.nav-link {
+  font-weight: bold;
+  color: #007bff; /* Цвет текста */
+  transition: color 0.2s ease-in-out; /* Плавный переход */
+}
+
+.nav-link:hover {
+  color: #0056b3; /* Цвет при наведении */
+  text-decoration: underline; /* Подчеркивание текста при наведении */
+}
+
+.navbar {
+  box-shadow: 0 4px 2px -2px gray; /* Тень для нижней границы навигации */
+}
+
+.navbar-brand {
+  font-size: 1.5rem;
+  font-weight: bold;
+}

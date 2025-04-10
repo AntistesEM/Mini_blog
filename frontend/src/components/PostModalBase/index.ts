@@ -1,1 +1,1 @@
-export * from "./PostModalBase";
+export * from './PostModalBase';

@@ -1,54 +1,66 @@
-# React + TypeScript + Vite
+# **"Мини-блог"**
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+## **Клиентская часть (фронтенд)**
 
-Currently, two official plugins are available:
+### **1. Структура Фронтенд (React)**
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+📁 `frontend/` – корневая папка фронтенда  
+📁 `public/img/` – папка с картинками
+📁 `src/` – исходный код приложения  
+&nbsp;&nbsp;&nbsp;&nbsp;📁 **`components/`** – UI-компоненты  
+&nbsp;&nbsp;&nbsp;&nbsp;📁 **`pages/`** – страницы  
+&nbsp;&nbsp;&nbsp;&nbsp;📁 **`types/`** – описание интерфейсов
+&nbsp;&nbsp;&nbsp;&nbsp;📄 `config.ts` – файл конфигурации для хранения настроек приложения
 
-## Expanding the ESLint configuration
+📄 `package.json` – зависимости и скрипты для сборки  
+📄 `config.ts` – файл конфигурации для хранения настроек приложения
+📄 `Dockerfile` – набор инструкций по созданию образа докера
+📄 `README.md` – инструкция по установке и развертыванию  
 
-If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
+**Следующие страницы из папки `pages/`** являются демонстрационными, без функционала
 
-```js
-export default tseslint.config({
-  extends: [
-    // Remove ...tseslint.configs.recommended and replace with this
-    ...tseslint.configs.recommendedTypeChecked,
-    // Alternatively, use this for stricter rules
-    ...tseslint.configs.strictTypeChecked,
-    // Optionally, add this for stylistic rules
-    ...tseslint.configs.stylisticTypeChecked,
-  ],
-  languageOptions: {
-    // other options...
-    parserOptions: {
-      project: ['./tsconfig.node.json', './tsconfig.app.json'],
-      tsconfigRootDir: import.meta.dirname,
-    },
-  },
-})
-```
+📄 `About.tsx`  
+📄 `Contacts.tsx`
+📄 `Signin.tsx`
+📄 `Signup.tsx`
+📄 `Team.tsx`
 
-You can also install [eslint-plugin-react-x](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom) for React-specific lint rules:
+---
 
-```js
-// eslint.config.js
-import reactX from 'eslint-plugin-react-x'
-import reactDom from 'eslint-plugin-react-dom'
+### **2. Развёртывание проекта локально**
 
-export default tseslint.config({
-  plugins: {
-    // Add the react-x and react-dom plugins
-    'react-x': reactX,
-    'react-dom': reactDom,
-  },
-  rules: {
-    // other rules...
-    // Enable its recommended typescript rules
-    ...reactX.configs['recommended-typescript'].rules,
-    ...reactDom.configs.recommended.rules,
-  },
-})
-```
+1. Перейти в папку с фронтендом.
+
+   ```bash
+   cd frontend
+   ```
+
+2. Запустить установку зависимостей:
+
+   ```bash
+   npm install
+   ```
+
+3. Открыть файл config.ts в папке `frontend\src\`:
+
+    указать `API_BASE_URL = 'ваш_url'` (у меня '<http://localhost:8000>')
+
+4. Запустить одним из способов:
+
+- в режиме разработки:
+
+   ```bash
+   npm run dev
+   ```
+
+- в режиме предварительного просмотра собранного приложения:
+
+   ```bash
+   npm run build
+   ```
+
+   после сборки:
+
+   ```bash
+   npm run preview
+   ```
