@@ -3,10 +3,22 @@ import { Link, useLocation } from 'react-router-dom';
 
 import styles from './Navigation.module.css';
 
+/**
+ * Компонента навигации для приложения. *
+ * Эта компонента отображает адаптивную навигационную панель с ссылками на различные страницы приложения.
+ * Она включает выпадающее меню для раздела "О нас", которое содержит дополнительные ссылки.
+ * Навигационные ссылки отображаются условно в зависимости от текущего пути.
+ * @component
+ * @returns {JSX.Element} Отрисованная навигационная панель.
+ * @see https://reactrouter.com/docs/en/v6/hooks/use-location Ссылка на информацию о хуке useLocation.
+ * @see https://getbootstrap.com/docs/5.0/components/navbar/ Ссылка для получения дополнительных сведений о компоненте навигационной панели Bootstrap.
+ */
 export const Navigation: React.FC = () => {
+  // Хук для получения текущего местоположения из React Router
   const location = useLocation();
   const currentPath = location.pathname;
 
+  // Основные навигационные ссылки
   const navLinks = [
     { path: '/', label: 'Главная' },
     { path: '#', label: 'О нас' },
@@ -14,6 +26,7 @@ export const Navigation: React.FC = () => {
     { path: '/signup', label: 'Регистрация' },
   ];
 
+  // Подменю для раздела 'О нас'
   const aboutSubLinks = [
     { path: '/about', label: 'О компании' },
     { path: '/team', label: 'Наша команда' },

@@ -14,6 +14,26 @@ import { Post } from '../../types/types';
 import { PostCard } from '../PostCard';
 import { PostModalBase } from '../PostModalBase';
 
+/**
+ * Компонента для отображения списка постов.
+ * Этот компонент загружает посты из API, отображает их в виде карточек,
+ * предоставляет функциональность поиска, добавления, редактирования и удаления постов.
+ *
+ * @component
+ * @returns {JSX.Element} Возвращает отрисованный список постов с функциональностью управления.
+ *
+ * @example
+ * // Использование компоненты PostList
+ * import { PostList } from './PostList';
+ *
+ * function App() {
+ *   return (
+ *     <div>
+ *       <PostList />
+ *     </div>
+ *   );
+ * }
+ */
 export const PostList: React.FC = () => {
   const [currentPost, setCurrentPost] = useState<Post | null>(null);
   const [showPostModal, setShowPostModal] = useState<boolean>(false);
@@ -24,6 +44,11 @@ export const PostList: React.FC = () => {
   const [searchQuery, setSearchQuery] = useState<string>('');
   const [debouncedSearchQuery] = useDebounce(searchQuery, 1000);
 
+  /**
+   * Открывает модальное окно для добавления или редактирования поста.
+   * @param {Post} [post] - Объект поста, который нужно редактировать. Если не передан,
+   * создаётся новый пост с пустыми значениями.
+   */
   const handleShowPostModal = (post?: Post) => {
     setCurrentPost(
       post ? { ...post } : { id: 0, title: '', author: '', text: '' }
@@ -31,8 +56,16 @@ export const PostList: React.FC = () => {
     setShowPostModal(true);
   };
 
+  /**
+   * Закрывает модальное окно для добавления или редактирования поста.
+   */
   const handleClosePostModal = () => setShowPostModal(false);
 
+  /**
+   * Загружает посты из API на основе строки поиска или заданного URL.
+   * @param {string} [search] - Строка поиска постов (по умолчанию пустая строка).
+   * @param {string} [url] - URL для получения постов (по умолчанию будет использоваться API).
+   */
   const fetchPosts = async (search: string = '', url?: string) => {
     try {
       setLoading(true);
@@ -50,14 +83,23 @@ export const PostList: React.FC = () => {
     }
   };
 
+  /**
+   * Обрабатывает изменение в поле поиска.
+   * @param {React.ChangeEvent<HTMLInputElement>} event - Событие изменения.
+   */
   const handleSearchChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     setSearchQuery(event.target.value);
   };
 
+  // Эффект для загрузки постов при изменении строки поиска.
   useEffect(() => {
     fetchPosts(debouncedSearchQuery);
   }, [debouncedSearchQuery]);
 
+  /**
+   * Удаляет пост по заданному ID.
+   * @param {number} id - ID поста, который нужно удалить.
+   */
   const onDelete = async (id: number) => {
     try {
       await axios.delete(`${API_BASE_URL}/api/posts/${id}/`);
@@ -67,6 +109,9 @@ export const PostList: React.FC = () => {
     }
   };
 
+  /**
+   * Добавляет новый пост.
+   */
   const addPost = async () => {
     try {
       await axios.post(`${API_BASE_URL}/api/posts/`, currentPost);
@@ -77,6 +122,9 @@ export const PostList: React.FC = () => {
     }
   };
 
+  /**
+   * Обновляет существующий пост.
+   */
   const updatePost = async () => {
     try {
       const response = await axios.put(
@@ -94,26 +142,44 @@ export const PostList: React.FC = () => {
     }
   };
 
+  /**
+   * Обрабатывает изменение заголовка поста.
+   * @param {string} title - Новый заголовок поста.
+   */
   const onChangeTitle = (title: string) => {
     setCurrentPost((prevState) => (prevState ? { ...prevState, title } : null));
   };
 
+  /**
+   * Обрабатывает изменение автора поста.
+   * @param {string} author - Новый автор поста.
+   */
   const onChangeAuthor = (author: string) => {
     setCurrentPost((prevState) =>
       prevState ? { ...prevState, author } : null
     );
   };
 
+  /**
+   * Обрабатывает изменение текста поста.
+   * @param {string} text - Новый текст поста.
+   */
   const onChangeBody = (text: string) => {
     setCurrentPost((prevState) => (prevState ? { ...prevState, text } : null));
   };
 
+  /**
+   * Загружает следующую страницу постов.
+   */
   const loadNextPage = () => {
     if (nextPage) {
       fetchPosts('', nextPage);
     }
   };
 
+  /**
+   * Загружает предыдущую страницу постов.
+   */
   const loadPreviousPage = () => {
     if (previousPage) {
       fetchPosts('', previousPage);

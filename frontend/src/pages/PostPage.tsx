@@ -5,12 +5,36 @@ import { useParams } from 'react-router-dom';
 import API_BASE_URL from '../config';
 import { Post } from '../types/types';
 
+/**
+ * Компонента для отображения страницы поста с комментариями.
+ * Этот компонент загружает определенный пост по его ID, отображает заголовок, текст поста
+ * и позволяет пользователям добавлять комментарии.
+ *
+ * @component
+ * @returns {JSX.Element} Возвращает отрисованную страницу поста с комментариями.
+ *
+ * @example
+ * // Использование компоненты PostPage
+ * import { PostPage } from './PostPage';
+ *
+ * function App() {
+ *   return (
+ *     <div>
+ *       <PostPage />
+ *     </div>
+ *   );
+ * }
+ */
 const PostPage: React.FC = () => {
   const { postId } = useParams<{ postId: string }>();
   const [isLoading, setIsLoading] = useState<boolean>(false);
   const [post, setPost] = useState<Post | undefined>(undefined);
   const [currentComment, setCurrentComment] = useState<string>('');
 
+  /**
+   * Загружает пост с указанным ID при монтировании компоненты.
+   * Использует хук useEffect для выполнения операции загрузки поста.
+   */
   useEffect(() => {
     const fetchPost = async () => {
       setIsLoading(true);
@@ -33,8 +57,12 @@ const PostPage: React.FC = () => {
     fetchPost();
   }, [postId]);
 
+  /**
+   * Обрабатывает отправку комментария.
+   * Если комментарий не пустой, отправляет его на сервер и обновляет состояние поста.
+   */
   const handleCommentSubmit = async () => {
-    if (currentComment.trim() === '') return;
+    if (currentComment.trim() === '') return; // Проверка на пустой комментарий
     try {
       const response = await axios.post(`${API_BASE_URL}/api/comments/`, {
         post: postId,
@@ -43,6 +71,7 @@ const PostPage: React.FC = () => {
 
       const newComment = response.data;
 
+      // Обновление состояния поста с добавленным комментарием
       if (post) {
         setPost({
           ...post,

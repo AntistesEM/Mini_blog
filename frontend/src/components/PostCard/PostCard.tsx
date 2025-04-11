@@ -5,6 +5,43 @@ import { Link } from 'react-router-dom';
 
 import { PostCardProps } from '../../types/types';
 
+/**
+ * Компонента для отображения карточки поста.
+ * Этот компонент показывает заголовок, дату создания, автора и текст поста в виде карточки.
+ * Также включает кнопки для редактирования и удаления поста, а также ссылку для просмотра полного поста.
+ *
+ * @component
+ * @param {Object} props - Свойства компоненты.
+ * @param {Object} props.post - Объект поста, содержащий информацию о посте.
+ * @param {string} props.post.title - Заголовок поста.
+ * @param {string} props.post.text - Текст поста.
+ * @param {string} props.post.author - Автор поста.
+ * @param {string} props.post.created_at - Дата создания поста в виде строки.
+ * @param {function} props.onEdit - Функция обратного вызова для редактирования поста.
+ * @param {function} props.onDelete - Функция обратного вызова для удаления поста.
+ * @returns {JSX.Element} Возвращает отрисованную карточку поста.
+ * @example
+ * // Использование компоненты PostCard
+ * import { PostCard } from './PostCard';
+ * function App() {
+ *   const handleEdit = () => {
+ *     // Логика редактирования поста
+ *   };
+ *   const handleDelete = (postId) => {
+ *     // Логика удаления поста
+ *   };
+ *   const post = {
+ *     id: 1,
+ *     title: 'Заголовок поста',
+ *     text: 'Текст поста...',
+ *     author: 'Автор',
+ *     created_at: '2023-10-01T12:00:00Z'
+ *   };
+ *   return (
+ *     <PostCard post={post} onEdit={handleEdit} onDelete={handleDelete} />
+ *   );
+ * }
+ */
 export const PostCard: React.FC<PostCardProps> = ({
   post,
   onEdit,
